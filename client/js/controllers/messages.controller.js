@@ -81,7 +81,7 @@ App.MessagesController = Ember.ArrayController.extend({
 		detectUnread: function(id, top, bottom, container) {
 			var self = this,
 				tab = this.get('tabs').filterProperty('_id', id)[0],
-				events = this.get('filtered').filterProperty('unread', true),
+				events = this.get('sorted').filterProperty('unread', true),
 				counter = 0;
 				docs = [];
 
@@ -95,7 +95,7 @@ App.MessagesController = Ember.ArrayController.extend({
 				if (el.get(0)) {
 					var topOffset = el[0].offsetTop;
 
-					if (top === 0 || top < topOffset && topOffset < bottom) {
+					if ((top === 0 || top < topOffset && topOffset < bottom) && App.get('isActive')) {
 						// XXX - Handle highlights
 
 						item.set('unread', false);
